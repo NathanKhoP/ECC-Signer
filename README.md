@@ -121,10 +121,10 @@ python export-key my_key
 
 ```bash
 # Test basic functionality
-python test_signing.py
+python tests/test_signing.py
 
 # Test encrypted key features
-python test_signing_encrypted.py
+python tests/test_signing_encrypted.py
 ```
 
 ## Program Flow
