@@ -2,15 +2,17 @@
 
 **Kelompok 1**
 
-| Nama                     | NRP        |
-| ------------------------ | ---------- |
-| Nathan Kho Pancras       | 5027231002 |
-| Diandra Naufal Abror     | 5027231004 |
-| Rafael Jonathan Arnoldus | 5027231006 |
-| Michael Kenneth Salim    | 5027231008 |
-| Rafael Ega Krisaditya    | 5027231025 |
-| Fico Simhanandi          | 5027231030 |
-| Dimas Andhika Diputra    | 5027231074 |
+| Nama                      | NRP        | Field      | Pembagian Tugas                           |
+| ------------------------- | ---------- | ---------- | ----------------------------------------- |
+| Nathan Kho Pancras        | 5027231002 | Full-stack | Project Manager / Cryptographic Assessor  |
+| Diandra Naufal Abror      | 5027231004 | Backend    | Key Management Developer                  |
+| Rafael Jonathan Arnoldus  | 5027231006 | Backend    | Digital Signature Developer               |
+| Michael Kenneth Salim     | 5027231008 | Frontend   | UI Lead                                   |
+| Rafael Ega Krisaditya     | 5027231025 | Full-stack | Security Tester / Quality Assessor        |
+| Amoes Noland              | 5027231028 | Backend    | Cryptograhy Implementation Specialist     |
+| Fico Simhanandi           | 5027231030 | Backend    | API Developer                             | 
+| Rafi' Afnaan Fathurrahman | 5027231040 | Backend    | Binary Patching Specialist                |
+| Dimas Andhika Diputra     | 5027231074 | Frontend   | State & API Integration                   |
 
 A secure digital signing system using Elliptic Curve Cryptography (ECC) for signing and verifying binary files with encrypted key storage.
 
@@ -37,8 +39,6 @@ uv run main.py
 ```
 
 **Frontend**
-
-using http server
 
 ```bash
 npm dev
