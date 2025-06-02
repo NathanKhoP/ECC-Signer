@@ -9,6 +9,7 @@
 | Rafael Jonathan Arnoldus | 5027231006 |
 | Michael Kenneth Salim    | 5027231008 |
 | Rafael Ega Krisaditya    | 5027231025 |
+| Fico Simhanandi          | 5027231030 |
 | Dimas Andhika Diputra    | 5027231074 |
 
 A secure digital signing system using Elliptic Curve Cryptography (ECC) for signing and verifying binary files with encrypted key storage.
