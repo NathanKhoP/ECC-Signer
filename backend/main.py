@@ -1,5 +1,6 @@
 
 from flask import Flask, request, jsonify, send_file
+from flask_cors import CORS
 import os
 import hashlib
 import base64
@@ -13,6 +14,7 @@ from Crypto.Protocol.KDF import PBKDF2
 from Crypto.Hash import SHA256
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all domains on all routes
 
 class ECCDigitalSigner:
     def __init__(self, storage_dir="keys", signatures_dir="signatures"):

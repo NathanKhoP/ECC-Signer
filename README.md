@@ -2,20 +2,21 @@
 
 **Kelompok 1**
 
-|Nama|NRP|
-|-|-|
-|Nathan Kho Pancras|5027231002|
-|Diandra Naufal Abror|5027231004|
-|Rafael Jonathan Arnoldus|5027231006|
-|Michael Kenneth Salim|5027231008|
-|Rafael Ega Krisaditya|5027231025|
+| Nama                     | NRP        |
+| ------------------------ | ---------- |
+| Nathan Kho Pancras       | 5027231002 |
+| Diandra Naufal Abror     | 5027231004 |
+| Rafael Jonathan Arnoldus | 5027231006 |
+| Michael Kenneth Salim    | 5027231008 |
+| Rafael Ega Krisaditya    | 5027231025 |
+| Dimas Andhika Diputra    | 5027231074 |
 
 A secure digital signing system using Elliptic Curve Cryptography (ECC) for signing and verifying binary files with encrypted key storage.
 
 ## Features
 
 - 📝 **Digital Signing** - Sign any binary file using ECDSA-SECP256k1
-- ✅ **Signature Verification** - Verify file integrity and authenticity  
+- ✅ **Signature Verification** - Verify file integrity and authenticity
 - 🔧 **Binary Patching** - Embed signatures directly into files
 - 🔐 **Encrypted Key Storage** - Private keys protected with AES-256-GCM
 - 💾 **Persistent Storage** - Keys and signatures saved to disk
@@ -36,12 +37,19 @@ uv run main.py
 
 **Frontend**
 
+using http server
+
 ```bash
+npm dev
+# OR
+python -m http.server 3000
+# OR just open up index.html frontend/index.html on your browser
 ```
 
 ## Backend APIs
 
 ### Generate Keys
+
 ```bash
 # Encrypted key (recommended)
 curl -X POST http://localhost:5000/generate-keys \
@@ -55,6 +63,7 @@ curl -X POST http://localhost:5000/generate-keys \
 ```
 
 ### Sign Files
+
 ```bash
 # With encrypted key
 curl -X POST http://localhost:5000/sign-file \
@@ -69,6 +78,7 @@ curl -X POST http://localhost:5000/sign-file \
 ```
 
 ### Verify Signatures
+
 ```bash
 curl -X POST http://localhost:5000/verify-signature \
   -F "file=@myfile.bin" \
@@ -77,6 +87,7 @@ curl -X POST http://localhost:5000/verify-signature \
 ```
 
 ### Patch Binary (Embed Signature)
+
 ```bash
 curl -X POST http://localhost:5000/patch-binary \
   -F "file=@myfile.bin" \
@@ -86,6 +97,7 @@ curl -X POST http://localhost:5000/patch-binary \
 ```
 
 ### Other Endpoints
+
 ```bash
 curl http://localhost:5000/keys        # List keys
 curl http://localhost:5000/signatures  # List signatures
@@ -98,7 +110,7 @@ curl http://localhost:5000/health      # Server status
 # Generate key
 python cli.py generate-key my_key
 
-# Sign file  
+# Sign file
 python cli.py sign myfile.bin my_key
 
 # Verify signature
@@ -130,7 +142,7 @@ python tests/test_signing_encrypted.py
 ## Program Flow
 
 1. **Key Generation** - Creates ECDSA key pairs with optional AES-256-GCM encryption
-2. **File Signing** - Computes SHA-256 hash and signs with private key  
+2. **File Signing** - Computes SHA-256 hash and signs with private key
 3. **Verification** - Uses public key to verify signature and file integrity
 4. **Binary Patching** - Embeds signature metadata directly into files
 5. **Persistent Storage** - Keys and signatures saved as JSON files

@@ -1,0 +1,15 @@
+{
+  "name": "ecc-digital-signing-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for ECC Digital Signing System",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 3000",
+    "serve": "python -m http.server 3000",
+    "dev": "python -m http.server 3000"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "Kelompok 1 - Kriptografi (B)",
+  "license": "MIT"
+}
