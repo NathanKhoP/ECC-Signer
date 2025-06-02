@@ -1079,12 +1079,19 @@
 
         // Main App Component
         const App = () => {
-            const [activeTab, setActiveTab] = useState('generate');
+            const [activeTab, setActiveTab] = useState(() => {
+                return localStorage.getItem('activeTab') || 'generate';
+            });
             const [keys, setKeys] = useState({});
             const [signatures, setSignatures] = useState({});
             const [serverInfo, setServerInfo] = useState(null);
             const [notifications, setNotifications] = useState([]);
             const [serverStatus, setServerStatus] = useState('checking');
+
+            // Persist active tab to localStorage
+            useEffect(() => {
+                localStorage.setItem('activeTab', activeTab);
+            }, [activeTab]);
 
             const addNotification = (type, message) => {
                 const id = Date.now();
@@ -1100,7 +1107,13 @@
                     const response = await fetch(`${API_BASE}/keys`);
                     const result = await response.json();
                     if (result.success) {
-                        setKeys(result.keys);
+                        setKeys(prevKeys => {
+                            // Only update if keys actually changed
+                            if (JSON.stringify(prevKeys) !== JSON.stringify(result.keys)) {
+                                return result.keys;
+                            }
+                            return prevKeys;
+                        });
                     }
                 } catch (error) {
                     console.error('Failed to fetch keys:', error);
@@ -1112,7 +1125,13 @@
                     const response = await fetch(`${API_BASE}/signatures`);
                     const result = await response.json();
                     if (result.success) {
-                        setSignatures(result.signatures);
+                        setSignatures(prevSignatures => {
+                            // Only update if signatures actually changed
+                            if (JSON.stringify(prevSignatures) !== JSON.stringify(result.signatures)) {
+                                return result.signatures;
+                            }
+                            return prevSignatures;
+                        });
                     }
                 } catch (error) {
                     console.error('Failed to fetch signatures:', error);
@@ -1144,7 +1163,7 @@
                     checkServerStatus();
                     fetchKeys();
                     fetchSignatures();
-                }, 30000); // Refresh every 30 seconds
+                }, 60000); // Refresh every 60 seconds instead of 30
                 
                 return () => clearInterval(interval);
             }, []);
