@@ -9,7 +9,7 @@
 | Rafael Jonathan Arnoldus  | 5027231006 | Backend    | Digital Signature Developer               |
 | Michael Kenneth Salim     | 5027231008 | Frontend   | UI Lead                                   |
 | Rafael Ega Krisaditya     | 5027231025 | Full-stack | Security Tester / Quality Assessor        |
-| Amoes Noland              | 5027231028 | Backend    | Cryptograhy Implementation Specialist     |
+| Amoes Noland              | 5027231028 | Backend    | Docs Maintainer / Quality Assessor        |
 | Fico Simhanandi           | 5027231030 | Backend    | API Developer                             | 
 | Rafi' Afnaan Fathurrahman | 5027231040 | Backend    | Binary Patching Specialist                |
 | Dimas Andhika Diputra     | 5027231074 | Frontend   | State & API Integration                   |
@@ -140,17 +140,80 @@ python tests/test_signing.py
 python tests/test_signing_encrypted.py
 ```
 
+## Web Interface Features
+
+The frontend provides an intuitive web interface with:
+
+### Key Generation
+- Create new ECDSA key pairs
+- Choose between encrypted (password-protected) or unencrypted keys
+- Real-time key generation with progress indicators
+
+### File Signing
+- Upload any file for digital signing
+- Select from available keys
+- Password input for encrypted keys
+- Download signature files (.sig format)
+
+### Signature Verification
+- Upload original file and signature file
+- Automatic key detection from signature metadata
+- Clear validation results with detailed information
+
+### Binary Patching
+- Embed signatures directly into files
+- Create self-contained signed binaries
+- Download patched files with embedded signatures
+
+### Patched Binary Verification
+- Verify files with embedded signatures
+- No separate signature file needed
+- Display signature metadata and file information
+
+### Key Management
+- View all stored keys
+- Export keys in different formats (PEM, DER)
+- Change passwords for encrypted keys
+- Delete keys securely
+
+### System Status
+- Monitor server health
+- View key and signature statistics
+- Display cryptographic algorithm details
+
 ## Program Flow
 
-1. **Key Generation** - Creates ECDSA key pairs with optional AES-256-GCM encryption
-2. **File Signing** - Computes SHA-256 hash and signs with private key
-3. **Verification** - Uses public key to verify signature and file integrity
-4. **Binary Patching** - Embeds signature metadata directly into files
-5. **Persistent Storage** - Keys and signatures saved as JSON files
+### Standard Signing Process
+1. **Key Generation**: Create ECDSA key pairs with optional AES-256-GCM encryption
+2. **File Hashing**: Compute SHA-256 hash of the input file
+3. **Digital Signing**: Sign the hash using the private key
+4. **Signature Storage**: Save signature metadata as JSON
+5. **Verification**: Use public key to verify signature authenticity
+
+### Binary Patching Process
+1. **File Analysis**: Read the original binary file
+2. **Signature Creation**: Generate digital signature
+3. **Metadata Embedding**: Append signature data to file
+4. **Integrity Preservation**: Maintain original file functionality
+5. **Self-Verification**: Enable signature checking without external files
 
 ## Details
 
-- **Elliptic Curve**: SECP256k1 (Bitcoin standard)
-- **Encryption**: AES-256-GCM with authenticated encryption
-- **Key Derivation**: PBKDF2-SHA256, 100,000 iterations
-- **Storage**: JSON files with persistent signatures and keys
+### Cryptographic Algorithms
+- **Elliptic Curve**: SECP256k1 (Bitcoin standard, 256-bit security)
+- **Digital Signature**: ECDSA (Elliptic Curve Digital Signature Algorithm)
+- **Hash Function**: SHA-256 (256-bit cryptographic hash)
+- **Encryption**: AES-256-GCM (authenticated encryption)
+- **Key Derivation**: PBKDF2-SHA256 with 100,000 iterations
+
+### Security Features
+- **Password Protection**: Private keys encrypted with user passwords
+- **Authenticated Encryption**: GCM mode prevents tampering
+- **Salt-based Derivation**: Each key uses unique salt values
+- **Secure Storage**: Keys stored as encrypted JSON files
+- **Tamper Detection**: Signatures detect any file modifications
+
+### File Formats
+- **Keys**: JSON format with encrypted private key data
+- **Signatures**: JSON format with signature metadata
+- **Patched Binaries**: Original file + appended signature block
