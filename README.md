@@ -144,10 +144,14 @@ python tests/test_signing_encrypted.py
 
 The frontend provides an intuitive web interface with:
 
+![Key Generation](https://github.com/user-attachments/assets/cf2fd171-83d6-47d4-b5f0-e3276defd1cf)
+
 ### Key Generation
 - Create new ECDSA key pairs
 - Choose between encrypted (password-protected) or unencrypted keys
 - Real-time key generation with progress indicators
+
+![File Signing](https://github.com/user-attachments/assets/d0b067b6-c201-4ca7-b692-07bb11bd6b31)
 
 ### File Signing
 - Upload any file for digital signing
@@ -155,26 +159,36 @@ The frontend provides an intuitive web interface with:
 - Password input for encrypted keys
 - Download signature files (.sig format)
 
+![Signature Verification](https://github.com/user-attachments/assets/0fcd1bb2-0865-42d3-99f3-b92a4f72cd34)
+
 ### Signature Verification
 - Upload original file and signature file
 - Automatic key detection from signature metadata
 - Clear validation results with detailed information
+
+![Binary Patching](https://github.com/user-attachments/assets/edf4f7a2-023a-4dbc-8d64-35085d2df81d)
 
 ### Binary Patching
 - Embed signatures directly into files
 - Create self-contained signed binaries
 - Download patched files with embedded signatures
 
+![Patched Binary Verification](https://github.com/user-attachments/assets/841510bc-cd2d-4856-8a3d-7e44ae8c082f)
+
 ### Patched Binary Verification
 - Verify files with embedded signatures
 - No separate signature file needed
 - Display signature metadata and file information
+
+![Key Management](https://github.com/user-attachments/assets/65ae7a49-b728-4c82-a1ba-13d58aa7625a)
 
 ### Key Management
 - View all stored keys
 - Export keys in different formats (PEM, DER)
 - Change passwords for encrypted keys
 - Delete keys securely
+
+![System Status](https://github.com/user-attachments/assets/8adfae25-14ae-4c3c-9493-d23fe32952dd)
 
 ### System Status
 - Monitor server health
@@ -196,6 +210,25 @@ The frontend provides an intuitive web interface with:
 3. **Metadata Embedding**: Append signature data to file
 4. **Integrity Preservation**: Maintain original file functionality
 5. **Self-Verification**: Enable signature checking without external files
+
+## About ECC
+
+Elliptic Curve Cryptography (ECC) is a modern approach to public-key cryptography, similar in purpose to RSA but based on different mathematical principles. Instead of relying on the difficulty of factoring large numbers, ECC's security is based on the difficulty of the Elliptic Curve Discrete Logarithm Problem (ECDLP).
+
+Here's the core idea in simple terms:
+
+1.  **The Curve:** We start with a specific, publicly known elliptic curve equation and a base point `G` on that curve. This defines the domain parameters for all cryptographic operations.
+2.  **Private Key:** A user generates a private key, which is simply a very large random number, `d`. This key is kept secret.
+3.  **Public Key:** The public key is calculated by performing a special kind of "addition" on the curve. We "add" the base point `G` to itself `d` times. The resulting point on the curve, `Q`, becomes the public key (`Q = d * G`).
+4.  **The Security:** While it is mathematically simple to calculate the public key `Q` from the private key `d`, it is computationally infeasible to determine the private key `d` even when you know the public key `Q` and the base point `G`. This one-way property is the foundation of ECC's security.
+
+Because of its mathematical properties, ECC offers the same level of security as RSA but with much smaller key sizes. This makes it highly efficient and ideal for systems with limited computing power or bandwidth, such as mobile devices and secure messaging. This project directly applies these ECC principles for creating and verifying digital signatures using the Elliptic Curve Digital Signature Algorithm (ECDSA).
+
+*   **Key Generation:** When you generate a new key pair in our system, the backend performs the steps described above. It creates a secret random number (`private key`) and uses the SECP256k1 curve's parameters to compute the corresponding `public key`. The private key is then securely stored (often encrypted with your password), while the public key is stored in plaintext, as it's meant to be shared.
+
+*   **Signing:** When you sign a file, the system first computes a SHA-256 hash of the file. The ECDSA algorithm then uses your private key and this hash to generate a unique digital signature. This signature is mathematical proof that you, the holder of the private key, have approved the file's content at that specific moment.
+
+*   **Verification:** To verify a signature, the system only needs the file, the signature itself, and the public key (which is publicly known). The verification algorithm uses the public key to confirm that the signature could *only* have been created by the corresponding private key for that specific file hash. This process ensures both the file's **integrity** (it hasn't changed) and its **authenticity** (it was signed by the correct person).
 
 ## Details
 
